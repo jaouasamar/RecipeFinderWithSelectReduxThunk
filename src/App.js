@@ -6,6 +6,7 @@ import RecipeTile from './RecipeTile';
 import { useEffect, useState } from "react";
 import { getData } from "./redux/actions";
 import { useSelector, useDispatch } from "react-redux";
+import { Spinner } from 'react-bootstrap';
 
 const App=() =>{
   const [query, setQuery] = useState("")
@@ -54,10 +55,15 @@ const onSubmit=(e)=>{
       
       </form>
       <div className="app__recipes">
-   {loading?<h1>Loading ....</h1>:recipes!=null&&recipes.map((recipe,index)=>
+   {loading?(  <Spinner animation="border" role="status">
+    <span className="sr-only">Loading...</span>
+  </Spinner>)
+   
+
+:(recipes!=null&&recipes.map((recipe,index)=>
      <RecipeTile recipe={recipe} key={index}/>
 
-   )}
+   ))}
       </div>
     </div>
   );
